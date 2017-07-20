@@ -60,6 +60,20 @@ def story():
 
 
 def main():
+	story_content = {"intro": "intro.txt",
+					"forest": "enter-forest.txt",
+					"reveal-shadow": "reveal-shadow.txt",
+					"ignore-shadow": "ignore-shadow.txt",
+					"face-wizard": "face-wizard.txt",
+					"run-wizard": "run-from-wizard.txt",
+					"incorrect-riddle": "incorrect-riddle-answer.txt",
+					"hint-riddle": "hint-riddle.txt",
+					"stay-sea": "stay-sea.txt",
+					"into-the-water": "into-the-water.txt",
+					"run-to-land": "run-to-land.txt",
+					"conclusion": "correct-answer-conclusion"}
+
+
 	f = open("stories/intro.txt", "r")
 	introduction = f.read()
 	f.close()
@@ -67,6 +81,9 @@ def main():
 
 	with open('stories/intro.txt', 'r') as f:
      	story_content['intro'] = f.read()
+
+    with open('stories/forest.txt', 'r') as f:
+    story_content['forest'] = f.read()
 
 
 if __name__ == '__main__':
