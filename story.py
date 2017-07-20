@@ -73,18 +73,43 @@ def main():
 					"run-to-land": "run-to-land.txt",
 					"conclusion": "correct-answer-conclusion"}
 
-
-	f = open("stories/intro.txt", "r")
-	introduction = f.read()
-	f.close()
-	story()
-
 	with open('stories/intro.txt', 'r') as f:
      	story_content['intro'] = f.read()
 
     with open('stories/forest.txt', 'r') as f:
-    story_content['forest'] = f.read()
+    	story_content['forest'] = f.read()
 
+    with open('stories/reveal-shadow.txt', 'r') as f:
+    	story_content['reveal-shadow'] = f.read()
+
+    with open('stories/ignore-shadow.txt', 'r') as f:
+    	story_content['ignore-shadow'] = f.read()
+
+    with open('stories/face-wizard.txt', 'r') as f:
+    	story_content['face-wizard'] = f.read()
+
+    with open('stories/run-from-wizard.txt', 'r') as f:
+    	story_content['run-wizard'] = f.read()
+
+    with open('stories/incorrect-riddle-answer.txt', 'r') as f:
+    	story_content['incorrect-riddle'] = f.read()
+
+    with open('stories/hint-riddle.txt', 'r') as f:
+    	story_content['hint-riddle'] = f.read()
+
+    with open('stories/stay-sea.txt', 'r') as f:
+    	story_content['stay-sea'] = f.read()
+
+    with open('stories/into-the-water.txt', 'r') as f:
+    	story_content['into-the-water'] = f.read()
+
+    with open('stories/run-to-land.txt', 'r') as f:
+    	story_content['run-to-land'] = f.read()
+
+    with open('stories/correct-answer-conclusion.txt', 'r') as f:
+    	story_content['conclusion'] = f.read()
+
+	story()
 
 if __name__ == '__main__':
 	main()
