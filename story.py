@@ -49,12 +49,21 @@ def story():
             if forest_input == "r" or forest_input == "reveal":
                 print(story_content["reveal-shadow"])
                 wizard_input = raw_input("\nType 'r'/'run' to run from the wizard or 'f'/'face' to face it:\n\n")
-                if wizard_input == "face" or "f":
+                if wizard_input == "face" or wizard_input == wizard_input == "f":
                     print(story_content["face-wizard"])
                     riddle_input = raw_input("\nType your answer here:\n\n")
-                    if riddle_input == "steps" or ridde_input == "footsteps":
+                    if riddle_input == "steps" or riddle_input == "footsteps":
                         print(story_content["conclusion"])
                         active = False
+                    elif riddle_input == "h" or riddle_input == "hint":
+                        print(story_content["hint-riddle"])
+                        second_riddle_input = raw_input("\nGuess again!\n\n")
+                        if second_riddle_input == "steps" or second_riddle_input == "footsteps":
+                            print(story_content["conclusion"])
+                            active = False
+                        else:
+                            print(story_content["incorrect-riddle"])
+                            active = False
                     else:
                         print(story_content["incorrect-riddle"])
                         active = False
@@ -70,12 +79,21 @@ def story():
             if sea_input == "l" or sea_input == "land":
                 print(story_content["run-to-land"])
                 wizard_input = raw_input("\nType 'r'/'run' to run from the wizard or 'f'/'face' to face it:\n\n")
-                if wizard_input == "face" or "f":
+                if wizard_input == "face" or wizard_input == "f":
                     print(story_content["face-wizard"])
                     riddle_input = raw_input("\nType your answer here:\n\n")
-                    if riddle_input == "steps" or ridde_input == "footsteps":
+                    if riddle_input == "steps" or riddle_input == "footsteps":
                         print(story_content["conclusion"])
                         active = False
+                    elif riddle_input == "h" or riddle_input == "hint":
+                        print(story_content["hint-riddle"])
+                        second_riddle_input = raw_input("\nGuess again!\n\n")
+                        if second_riddle_input == "steps" or second_riddle_input == "footsteps":
+                            print(story_content["conclusion"])
+                            active = False
+                        else:
+                            print(story_content["incorrect-riddle"])
+                            active = False
                     else:
                         print(story_content["incorrect-riddle"])
                         active = False
