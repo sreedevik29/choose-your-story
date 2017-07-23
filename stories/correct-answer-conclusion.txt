@@ -1,32 +1,4 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-“Correct! Well done, you are worthy enough to pass through my land and find the conclusion to your quest,” he says approvingly. 
+“Correct! Well done, you are worthy enough to pass through my land and find the conclusion to your quest,” he says approvingly.
 
 You can’t believe your luck. You actually guessed right, for once! Giddy with delight, you shake the wizard’s hands enthusiastically. With a new spring in your step, you walk by the hut, the other skeletons, and his gardens. Soon enough you approach the end of the forest.
 
@@ -44,6 +16,6 @@ You do a double take. The he was a she! The woman had dark skin, wide eyes, and 
 
 You stare at the woman in wonderment. She smiles back at your expression and bows respectfully.
 
-You bow back. You feel a renewed sense of purpose that fills you with a sense of peace and contentment. 
+You bow back. You feel a renewed sense of purpose that fills you with a sense of peace and contentment.
 
 THE END.

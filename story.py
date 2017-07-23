@@ -1,111 +1,120 @@
-import subprocess
+import os
 
-def story():
-    story_content = {}
-    
-    with open("stories/intro.txt", "r") as f:
-        story_content["intro"] = f.read()
+story_sections = ['intro', 'enter-forest', 'reveal-shadow',
+                  'ignore-shadow', 'face-wizard', 'run-from-wizard',
+                  'incorrect-riddle-answer', 'hint-riddle', 'stay-sea',
+                  'into-the-water', 'run-to-land',
+                  'correct-answer-conclusion']
+story_content = {}
+hint = False
+for section in story_sections:
+    file_path = "stories/" + section + ".txt"
+    with open(file_path) as file_reader:
+        story_content[section] = file_reader.read()
 
-    with open("stories/enter-forest.txt", "r") as f:
-        story_content["forest"] = f.read()
 
-    with open("stories/reveal-shadow.txt", "r") as f:
-        story_content["reveal-shadow"] = f.read()
+def queue_start_story():
+    queue_logic(section="intro",
+                prompt_text=("\nIf you choose the forest, type in 'left' "
+                             "or 'l' or to continue alongside the sea, type "
+                             "'right' or 'r':\n\n"),
+                options=("left", "l"),
+                path_a=queue_enter_forest,
+                path_b=queue_stay_sea)
 
-    with open("stories/ignore-shadow.txt", "r") as f:
-        story_content["ignore-shadow"] = f.read()
 
-    with open("stories/face-wizard.txt", "r") as f:
-        story_content["face-wizard"] = f.read()
+def queue_enter_forest():
+    queue_logic(section="enter-forest",
+                prompt_text=("\nType 'reveal' or 'r' to reveal the shadow or "
+                             "'walk' or 'w' to continue walking:\n\n"),
+                options=("reveal", "r"),
+                path_a=queue_reveal_shadow,
+                path_b=queue_ignore_shadow)
 
-    with open("stories/run-from-wizard.txt", "r") as f:
-        story_content["run-wizard"] = f.read()
 
-    with open("stories/incorrect-riddle-answer.txt", "r") as f:
-        story_content["incorrect-riddle"] = f.read()
+def queue_stay_sea():
+    queue_logic(section="stay-sea",
+                prompt_text=("\nType 'w' or 'water' to go into the water "
+                             "or 'l' or 'land' to get out:\n\n"),
+                options=("land", "l"),
+                path_a=queue_run_to_land,
+                path_b=queue_into_the_water)
 
-    with open("stories/hint-riddle.txt", "r") as f:
-        story_content["hint-riddle"] = f.read()
 
-    with open("stories/stay-sea.txt", "r") as f:
-        story_content["stay-sea"] = f.read()
+def queue_reveal_shadow():
+    queue_logic(section="reveal-shadow",
+                prompt_text=("\nType 'r' or 'run' to run from the wizard or "
+                             "'f' or 'face' to face it:\n\n"),
+                options=("face", "f"),
+                path_a=queue_riddle,
+                path_b=queue_run_from_wizard)
 
-    with open("stories/into-the-water.txt", "r") as f:
-        story_content["into-the-water"] = f.read()
 
-    with open("stories/run-to-land.txt", "r") as f:
-        story_content["run-to-land"] = f.read()
+def queue_ignore_shadow():
+    clear_screen()
+    print(story_content['ignore-shadow'])
 
-    with open("stories/correct-answer-conclusion.txt", "r") as f:
-        story_content["conclusion"] = f.read()
 
-    active = True
-    print(story_content["intro"])
-    while active:
-        intro_input = raw_input("\nIf you choose the forest, type in 'left' or 'l' or to continue alongside the sea, type 'right' or 'r':\n\n")
-        if intro_input == "left" or intro_input == "l":
-            print(story_content["forest"])
-            forest_input = raw_input("\nType 'reveal' or 'r' to reveal the shadow or 'walk' or 'w' to continue walking:\n\n")
-            if forest_input == "r" or forest_input == "reveal":
-                print(story_content["reveal-shadow"])
-                wizard_input = raw_input("\nType 'r'/'run' to run from the wizard or 'f'/'face' to face it:\n\n")
-                if wizard_input == "face" or wizard_input == wizard_input == "f":
-                    print(story_content["face-wizard"])
-                    riddle_input = raw_input("\nType your answer here:\n\n")
-                    if riddle_input == "steps" or riddle_input == "footsteps":
-                        print(story_content["conclusion"])
-                        active = False
-                    elif riddle_input == "h" or riddle_input == "hint":
-                        print(story_content["hint-riddle"])
-                        second_riddle_input = raw_input("\nGuess again!\n\n")
-                        if second_riddle_input == "steps" or second_riddle_input == "footsteps":
-                            print(story_content["conclusion"])
-                            active = False
-                        else:
-                            print(story_content["incorrect-riddle"])
-                            active = False
-                    else:
-                        print(story_content["incorrect-riddle"])
-                        active = False
-                else:
-                    print(story_content["run-wizard"])
-                    active = False
-            else: 
-                print(story_content["ignore-shadow"])
-                active = False
+def queue_into_the_water():
+    clear_screen()
+    print(story_content['into-the-water'])
+
+
+def queue_run_to_land():
+    queue_logic(section="run-to-land",
+                prompt_text=("\nType 'r' or 'run' to run from the wizard or "
+                             "'f' or 'face' to face it:\n\n"),
+                options=("face", "f"),
+                path_a=queue_riddle,
+                path_b=queue_run_from_wizard)
+
+
+def queue_run_from_wizard():
+    clear_screen()
+    print(story_content['run-from-wizard'])
+
+
+def queue_riddle():
+    global hint
+    if hint is False:
+        clear_screen()
+        print(story_content['face-wizard'])
+        user_input = raw_input("\nType your answer here or type 'h' "
+                               "for a hint:\n\n")
+    else:
+        user_input = raw_input("\nType your answer here:\n\n")
+    if user_input.lower() in ("footsteps", "steps", "footstep", "step"):
+        print(story_content['correct-answer-conclusion'])
+    elif user_input.lower() in ("hint", "h"):
+        if hint is False:
+            clear_screen()
+            print(story_content["hint-riddle"])
+            hint = True
+            queue_riddle()
         else:
-            print(story_content["stay-sea"])
-            sea_input = raw_input("\nType 'w' or 'water' to go into the water or 'l' or 'land' to get out:\n\n")
-            if sea_input == "l" or sea_input == "land":
-                print(story_content["run-to-land"])
-                wizard_input = raw_input("\nType 'r'/'run' to run from the wizard or 'f'/'face' to face it:\n\n")
-                if wizard_input == "face" or wizard_input == "f":
-                    print(story_content["face-wizard"])
-                    riddle_input = raw_input("\nType your answer here:\n\n")
-                    if riddle_input == "steps" or riddle_input == "footsteps":
-                        print(story_content["conclusion"])
-                        active = False
-                    elif riddle_input == "h" or riddle_input == "hint":
-                        print(story_content["hint-riddle"])
-                        second_riddle_input = raw_input("\nGuess again!\n\n")
-                        if second_riddle_input == "steps" or second_riddle_input == "footsteps":
-                            print(story_content["conclusion"])
-                            active = False
-                        else:
-                            print(story_content["incorrect-riddle"])
-                            active = False
-                    else:
-                        print(story_content["incorrect-riddle"])
-                        active = False
-                else:
-                    print(story_content["run-wizard"])
-                    active = False
-            else:
-                print(story_content["into-the-water"])
-                active = False
+            print("\nSorry, no more hints...\n\n")
+            queue_riddle()
+    else:
+        print(story_content['incorrect-riddle-answer'])
+
+
+def queue_logic(section, prompt_text, options, path_a, path_b):
+    clear_screen()
+    print(story_content[section])
+    user_input = raw_input(prompt_text)
+    if user_input.lower() in options:
+        path_a()
+    else:
+        path_b()
+
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def main():
-    story()
+    queue_start_story()
+
 
 if __name__ == '__main__':
     main()
