@@ -83,7 +83,8 @@ def queue_riddle():
                                "for a hint:\n\n")
     else:
         user_input = raw_input("\nType your answer here:\n\n")
-    if user_input.lower() in ("footsteps", "steps", "footstep", "step"):
+    if user_input.lower() in ("footsteps", "steps", "footstep", "step", "footprints", "footprint", "prints"):
+        clear_screen()
         print(story_content['correct-answer-conclusion'])
     elif user_input.lower() in ("hint", "h"):
         if hint is False:
@@ -95,6 +96,7 @@ def queue_riddle():
             print("\nSorry, no more hints...\n\n")
             queue_riddle()
     else:
+        clear_screen()
         print(story_content['incorrect-riddle-answer'])
 
 
